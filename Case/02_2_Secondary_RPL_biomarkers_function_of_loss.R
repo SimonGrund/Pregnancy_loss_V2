@@ -3,7 +3,7 @@ library(data.table)
 setwd("/Users/simon/Documents/Project/COPL_Marie_Louise/")
 source("Code/Plot_themes.R")
 
-d = readxl::read_excel("Data/AbHab 29-02-2024.xlsx")
+d = readxl::read_excel("Data/AbHab2 19-11-2024.xlsx")
 d$group = factor(d$group, levels = c(1,0), labels = c("Cases", "Control"))
 d = filter(d, group == "Cases", patient_type == 2)
 
@@ -46,12 +46,19 @@ for(biom in biomarkers){
   sig = ""; if(pval < 0.05){sig = " *"}; if(pval < 0.01){sig = ", (**)"}; if(pval < 0.001){sig = ", (***)"}
   sig2 = "NS"; if(pval < 0.05){sig2 = "p < 0.05"}; if(pval < 0.01){sig2 = "p < 0.01"}; if(pval < 0.001){sig2 = "p < 0.001"}
   
+  biom2 = biom
+  if(biom == "Total_cholesterol"){biom2 = "Total Cholesterol"}
+  if(biom == "LDL"){biom2 = "LDL Cholesterol"}
+  if(biom == "HDL"){biom2 = "HDL Cholesterol"}
+  
   gtmp = ggplot(d, aes_string(x = y, y = biom))+
+    #geom_boxplot(aes(x = as.factor(N_losses_before_ref)))+
     geom_point(col = "grey")+
     geom_smooth(method = "lm", lty = 2, col = "blue")+
     xlab("No. losses before referral")+
+    ylab(biom2)+
     #ggtitle(biom, subtitle = paste0("p<", scales::scientific(pval, digits = 3), sig2))+
-    ggtitle(biom, subtitle = paste0(sig2))+
+    ggtitle(biom2, subtitle = paste0(sig2))+
     tt
   
   assign(paste0("plot", biom), gtmp)
@@ -65,7 +72,8 @@ for(biom in biomarkers){
   }
 }
 
-plotGlucose + plotHbA1c + plotHDL + 
+#plotGlucose + 
+plotHbA1c + plotHDL + 
   plotLDL + plotTotal_cholesterol + plotTriglycerides +
   plot_layout(ncol=3)
 

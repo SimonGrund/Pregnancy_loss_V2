@@ -7,7 +7,7 @@ source("Code/Plot_themes.R")
 # for hver af de metaboliske biomarkører – også både justeret (BMI og alder) og ujusteret
 
 #Load data
-d = readxl::read_excel("Data/AbHab 29-02-2024.xlsx")
+d = readxl::read_excel("Data/AbHab2 19-11-2024.xlsx")
 d = filter(d, patient_type %in% c(2))
 table(d$group)
 d$group = factor(d$group, levels = c(1,0), labels = c("Cases", "Control"))
@@ -145,9 +145,15 @@ triglycerider = data.frame(feature = "triglycerider",
 
 
 ###Assemble output
-out = bind_rows(hba1c, glucose, total_kolesterol, ldl, hdl, triglycerider)
-out$feature = factor(out$feature, levels = rev(c("Age", "BMI","hba1c", "glucose", "Total kolesterol", "ldl", "hdl", "triglycerider")), 
-                     labels = rev(c("Age", "BMI","HbA1c", "Glucose", "Total cholesterol", "LDL", "HDL","Triglycerides")))
+# out = bind_rows(hba1c, glucose, total_kolesterol, ldl, hdl, triglycerider)
+# out$feature = factor(out$feature, levels = rev(c("Age", "BMI","hba1c", "glucose", "Total kolesterol", "ldl", "hdl", "triglycerider")), 
+#                      labels = rev(c("Age", "BMI","HbA1c", "Glucose", "Total cholesterol", "LDL", "HDL","Triglycerides")))
+
+out = bind_rows(hba1c, total_kolesterol, ldl, hdl, triglycerider)
+out$feature = factor(out$feature, levels = rev(c("Age", "BMI","hba1c", "Total kolesterol", "ldl", "hdl", "triglycerider")), 
+                     labels = rev(c("Age", "BMI","HbA1c", "Total Cholesterol", "LDL Cholesterol", "HDL Cholesterol","Triglycerides")))
+
+
 
 
 out = out%>%
@@ -172,7 +178,7 @@ g1 = ggplot(out, aes(x = odds_ratio_glm, y = feature))+
   ggpubr::theme_classic2()+
   xlab("Odds ratio with 95%-confidence interval")+
   ggtitle("Achieved pregnancy")+
-  expand_limits(y = 7)
+  expand_limits(y = 6)
 
 g1 
 
@@ -274,9 +280,13 @@ triglycerider = data.frame(feature = "triglycerider",
 
 
 ###Assemble output
-out = bind_rows(hba1c, glucose, total_kolesterol, ldl, hdl, triglycerider)
-out$feature = factor(out$feature, levels = rev(c("Age", "BMI","hba1c", "glucose", "Total kolesterol", "ldl", "hdl", "triglycerider")), 
-                     labels = rev(c("Age", "BMI","HbA1c", "Glucose", "Total cholesterol", "LDL", "HDL" ,"Triglycerides")))
+# out = bind_rows(hba1c, glucose, total_kolesterol, ldl, hdl, triglycerider)
+# out$feature = factor(out$feature, levels = rev(c("Age", "BMI","hba1c", "glucose", "Total kolesterol", "ldl", "hdl", "triglycerider")), 
+#                      labels = rev(c("Age", "BMI","HbA1c", "Glucose", "Total cholesterol", "LDL", "HDL" ,"Triglycerides")))
+
+out = bind_rows(hba1c, total_kolesterol, ldl, hdl, triglycerider)
+out$feature = factor(out$feature, levels = rev(c("Age", "BMI","hba1c", "Total kolesterol", "ldl", "hdl", "triglycerider")), 
+                     labels = rev(c("Age", "BMI","HbA1c", "Total Cholesterol", "LDL Cholesterol", "HDL Cholesterol" ,"Triglycerides")))
 
 
 out = out%>%
@@ -301,7 +311,7 @@ g2 = ggplot(out, aes(x = odds_ratio_glm, y = feature))+
   ggpubr::theme_classic2()+
   xlab("Odds ratio with 95%-confidence interval")+
   ggtitle("Live birth, in case of pregnancy")+
-  expand_limits(y = 7)
+  expand_limits(y = 6)
 
 g2
 

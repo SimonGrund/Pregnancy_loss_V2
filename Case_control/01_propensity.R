@@ -9,7 +9,7 @@ library(MatchIt)
 library(lmtest)
 library(sandwich)
 
-d = readxl::read_excel("Data/AbHab 29-02-2024.xlsx")
+d = readxl::read_excel("Data/AbHab2 19-11-2024.xlsx")
 d$group = factor(d$group, levels = c(1,0), labels = c("Cases", "Control"))
 
 # Calculate standardized mean difference for unmatched data

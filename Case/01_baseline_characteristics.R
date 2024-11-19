@@ -3,7 +3,7 @@ library(data.table)
 setwd("/Users/simon/Documents/Project/COPL_Marie_Louise/")
 source("Code/Plot_themes.R")
 
-d = readxl::read_excel("Data/AbHab 29-02-2024.xlsx")
+d = readxl::read_excel("Data/AbHab2 19-11-2024.xlsx")
 d$group = factor(d$group, levels = c(1,0), labels = c("Cases", "Control"))
 d = filter(d, group == "Cases")
 

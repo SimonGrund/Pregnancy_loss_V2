@@ -102,7 +102,7 @@ total_kolesterol = ggplot(d, aes(x = total_kolesterol, fill = group))+
   geom_histogram(col = "black", size = 0.2)+
   tt+
   ylab("No. of patients")+
-  xlab("Total cholesterol")+
+  xlab("Total Cholesterol")+
   theme(
     legend.title = element_blank()
   )+
@@ -129,7 +129,7 @@ ldl = ggplot(d, aes(x = ldl, fill = group))+
   geom_histogram(col = "black", size = 0.2)+
   tt+
   ylab("No. of patients")+
-  xlab("LDL")+
+  xlab("LDL Cholesterol")+
   theme(
     legend.title = element_blank()
   )+
@@ -156,7 +156,7 @@ hdl = ggplot(d, aes(x = hdl, fill = group))+
   geom_histogram(col = "black", size = 0.2)+
   tt+
   ylab("No. of patients")+
-  xlab("HDL")+
+  xlab("HDL Cholesterol")+
   theme(
     legend.title = element_blank()
   )+
@@ -207,11 +207,13 @@ openxlsx::write.xlsx(t2, "Results/Tables/Table4.xlsx")
 
 # Patchwork
 library(patchwork)
-hba1c + glucose + total_kolesterol + ldl + hdl + triglycerid + 
+hba1c +
+  #glucose + 
+  total_kolesterol + ldl + hdl + triglycerid + 
   plot_layout(ncol = 2) + 
   plot_layout(guides = "collect") & theme(legend.position = "bottom", 
                                           legend.justification = "left",
                                           legend.direction = "vertical") 
-# ggsave(filename = "Results/Figures/Biomarker_characteristics_after_matching.pdf", device = cairo_pdf,
-#        width = 5, height = 6)
-       
+
+ggsave(filename = "Results/Figures/Biomarker_characteristics_after_matching.pdf", device = cairo_pdf,
+       width = 5, height = 6)

@@ -4,7 +4,7 @@ library(TOSTER)
 setwd("/Users/simon/Documents/Project/COPL_Marie_Louise/")
 source("Code/Plot_themes.R")
 
-d = readxl::read_excel("Data/AbHab 29-02-2024.xlsx")
+d = readxl::read_excel("Data/AbHab2 19-11-2024.xlsx")
 d$group = factor(d$group, levels = c(1,0), labels = c("Cases", "Control"))
 d = filter(d, group == "Cases")
 d = rename(d, glucose = glucose_middel)
@@ -214,7 +214,12 @@ openxlsx::write.xlsx(t2, "Results/Tables/Table2.xlsx")
 
 # Patchwork
 library(patchwork)
-hba1c + glucose + total_kolesterol + ldl + hdl + triglycerid + 
+hba1c + 
+#  glucose + 
+  total_kolesterol + 
+  ldl + 
+  hdl + 
+  triglycerid + 
   plot_layout(ncol = 2) + 
   plot_layout(guides = "collect") & theme(legend.position = "bottom", 
                                           legend.justification = "left",

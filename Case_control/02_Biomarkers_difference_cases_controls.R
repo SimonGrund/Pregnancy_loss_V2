@@ -125,10 +125,15 @@ library(broom)
                              'confint_97,5%' = exp(confint(coefficients)[[4]]))
   
   
+  # ###Assemble output
+  # out = bind_rows(hba1c, glucose, total_kolesterol, ldl, hdl, triglycerider)
+  # out$feature = factor(out$feature, levels = rev(c("Age", "BMI","hba1c", "glucose", "Total kolesterol", "ldl", "hdl", "triglycerider")), 
+  #                      labels = rev(c("Age", "BMI","HbA1c", "Glucose", "Total cholesterol", "LDL", "HDL","Triglycerides")))
+  # 
   ###Assemble output
-  out = bind_rows(hba1c, glucose, total_kolesterol, ldl, hdl, triglycerider)
-  out$feature = factor(out$feature, levels = rev(c("Age", "BMI","hba1c", "glucose", "Total kolesterol", "ldl", "hdl", "triglycerider")), 
-                       labels = rev(c("Age", "BMI","HbA1c", "Glucose", "Total cholesterol", "LDL", "HDL","Triglycerides")))
+  out = bind_rows(hba1c, total_kolesterol, ldl, hdl, triglycerider)
+  out$feature = factor(out$feature, levels = rev(c("Age", "BMI","hba1c", "Total kolesterol", "ldl", "hdl", "triglycerider")), 
+                       labels = rev(c("Age", "BMI","HbA1c", "Total Cholesterol", "LDL Cholesterol", "HDL Cholesterol","Triglycerides")))
   
   
   out = out%>%
@@ -147,8 +152,8 @@ library(broom)
     geom_errorbarh(aes(xmin = confint_2.5., xmax = confint_97.5.), height = 0.1)+
     ggpubr::theme_classic2()+
     xlab("Odds ratio\nwith 95%-confidence intervals")+
-    ggtitle("RPL against controls")+
-    expand_limits(y = 7)+
+    ggtitle("")+
+    expand_limits(y = 6)+
     ylab("")
   
 #g1

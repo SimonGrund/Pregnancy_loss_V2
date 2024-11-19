@@ -4,7 +4,7 @@ library(patchwork)
 setwd("/Users/simon/Documents/Project/COPL_Marie_Louise/")
 source("Code/Plot_themes.R")
 
-d = readxl::read_excel("Data/AbHab 29-02-2024.xlsx")
+d = readxl::read_excel("Data/AbHab2 19-11-2024.xlsx")
 d$group = factor(d$group, levels = c(1,0), labels = c("Cases", "Control"))
 matched = fread("Data/matched_data.tsv")
 
@@ -62,7 +62,7 @@ ageplot1 = ggplot(d, aes(x = age, fill = group))+
   theme(
     legend.title = element_blank()
   )+
-  ggtitle("Age Before Propensity Matching")
+  ggtitle("Age Before Matching")
 #  annotate(geom = "text", label = "27 years", x = 27.5, y = 60, hjust = 0, size = 3.2)
 ageplot1
 
@@ -86,7 +86,7 @@ ageplot2 = ggplot(matched, aes(x = age, fill = group))+
   theme(
     legend.title = element_blank()
   )+
-  ggtitle("Age After Propensity Matching")
+  ggtitle("Age After Matching")
 #  annotate(geom = "text", label = "27 years", x = 27.5, y = 60, hjust = 0, size = 3.2)
 ageplot2
 ageplot1 + ageplot2 + 
@@ -111,7 +111,7 @@ bmiplot1 = ggplot(d, aes(x = BMI, fill = group))+
   theme(
     legend.title = element_blank()
   )+
-  ggtitle("BMI Before Propensity Matching")
+  ggtitle("BMI Before Matching")
 #  annotate(geom = "text", label = "27 years", x = 27.5, y = 60, hjust = 0, size = 3.2)
 bmiplot1
 
@@ -133,7 +133,7 @@ bmiplot2 = ggplot(matched, aes(x = BMI, fill = group))+
   theme(
     legend.title = element_blank()
   )+
-  ggtitle("BMI After Propensity Matching")
+  ggtitle("BMI After Matching")
 #  annotate(geom = "text", label = "27 years", x = 27.5, y = 60, hjust = 0, size = 3.2)
 bmiplot2
 bmiplot1 + bmiplot2 + 
@@ -164,7 +164,7 @@ smokeplot1 = ggplot(d2, aes(x = smoking, y = pct, fill = group))+
     legend.title = element_blank()
   )+
   scale_fill_manual(values = c("forestgreen","grey" ))+
-  ggtitle("Smoking Status Before Propensity Matching")
+  ggtitle("Smoking Status Before Matching")
 
 smokeplot1
 
@@ -199,7 +199,7 @@ smokeplot2 = ggplot(matched2, aes(x = smoking, y = pct, fill = group))+
     legend.title = element_blank()
   )+
   scale_fill_manual(values = c("forestgreen","grey" ))+
-  ggtitle("Smoking Status After Propensity Matching")
+  ggtitle("Smoking Status After Matching")
 
 smokeplot2
 
